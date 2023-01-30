@@ -26,7 +26,7 @@ let lastTaskIndex = 2;
 function App() {
     const [ tasks, setTasks ] = useState(initialTasks);
 
-    const handleAddTask = (text) => setTasks(...tasks, { id: ++lastTaskIndex, text: text, done: false })
+    const handleAddTask = (text) => setTasks([...tasks, { id: ++lastTaskIndex, text: text, done: false }])
 
     const handleChangeTask = (task) => setTasks(tasks.map((t) => (t.id === task.id) ? task : t))
 
