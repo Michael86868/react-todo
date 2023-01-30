@@ -1,0 +1,5 @@
+.input-shadow {
+    -webkit-box-shadow: 0 0 89px 5px rgba(9, 65, 100, 0.61);
+    -moz-box-shadow: 0 0 89px 5px rgba(9, 65, 100, 0.61);
+    box-shadow: 0 0 89px 5px rgba(9, 65, 100, 0.61);
+}
