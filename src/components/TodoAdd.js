@@ -12,7 +12,7 @@ const TodoAdd = ({ onAddTask }) => {
                 placeholder={'Co chcete přidat...'}
                 value={text}
                 onChange={((e) => setText(e.target.value))}
-                onKeyDown={(e) => (e.key === 'Enter') && (text.length > 0) && onAddTask(text) }
+                onKeyDown={(e) => (e.key === 'Enter') && (text.length > 0) && (onAddTask(text) || setText('')) }
             />
         </Row>
     );
