@@ -33,6 +33,7 @@ const TodoItem = ({ task, onChange, onDelete }) => {
                         className={'bg-transparent border-0 text-light p-0 m-0 h4'}
                         style={{ outline: 'none' }}
                         onChange={(e) => onChange({ ...task, text: e.target.value })}
+                        onKeyDown={(e) => (isEditing) && (e.key === 'Enter') && setIsEditing(!isEditing) }
                     /> :
                     <span>{task.text}</span>}
             </div>
