@@ -1,0 +1,12 @@
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.dropdown-toggle {
+    padding: 10px;
+}
+
+.dropdown-toggle:hover {
+    background-color: #052027;
+    border-radius: 5px;
+}
