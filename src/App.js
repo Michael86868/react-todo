@@ -2,7 +2,8 @@ import './App.css';
 import { Container } from "react-bootstrap";
 import TodoList from "./components/TodoList";
 import TodoAdd from "./components/TodoAdd";
-import { useState } from "react";
+import { useState, useReducer } from "react";
+import tasksReducer from './components/TasksReducer'
 
 const initialTasks = [
     {
@@ -24,13 +25,12 @@ const initialTasks = [
 let lastTaskIndex = 2;
 
 function App() {
-    const [ tasks, setTasks ] = useState(initialTasks);
+    const [ tasks, dispatch ] = useReducer(tasksReducer, initialTasks);
+    const handleAddTask = (text) => dispatch({ type: 'added', id: ++lastTaskIndex, text: text })
 
-    const handleAddTask = (text) => setTasks([...tasks, { id: ++lastTaskIndex, text: text, done: false }])
+    const handleChangeTask = (task) => dispatch({ type: 'changed', task: task })
 
-    const handleChangeTask = (task) => setTasks(tasks.map((t) => (t.id === task.id) ? task : t))
-
-    const handleDeleteTask = (id) => setTasks(tasks.filter((task) => (task.id !== id)))
+    const handleDeleteTask = (id) => dispatch({ type: 'deleted', id: id })
 
     return (
         <div className="todo-main">
