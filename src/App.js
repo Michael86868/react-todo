@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import TodoList from "./components/TodoList";
 import TodoAdd from "./components/TodoAdd";
 import { useState, useReducer } from "react";
+import tasksReducer from './components/TasksReducer'
 
 const initialTasks = [
     {
@@ -22,15 +23,6 @@ const initialTasks = [
     },
 ]
 let lastTaskIndex = 2;
-
-const tasksReducer = (tasks, action) => {
-    switch(action.type){
-        case 'added': return [...tasks, { id: action.id, text: action.text, done: false }]
-        case 'changed': return tasks.map((task) => (task.id === action.task.id) ? action.task : task)
-        case 'deleted': return tasks.filter((task) => task.id !== action.id)
-        default: throw Error('Špatná akce.')
-    }
-}
 
 function App() {
     const [ tasks, dispatch ] = useReducer(tasksReducer, initialTasks);
