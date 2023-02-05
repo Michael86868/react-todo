@@ -2,7 +2,7 @@ import './App.css';
 import { Container } from "react-bootstrap";
 import TodoList from "./components/TodoList";
 import TodoAdd from "./components/TodoAdd";
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import tasksReducer from './components/TasksReducer'
 
 const initialTasks = [
