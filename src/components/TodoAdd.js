@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import '../styles/TodoAdd.css'
 import { Row } from "react-bootstrap";
+import { useTasksDispatch } from "./TasksContext";
 
-const TodoAdd = ({ onAddTask }) => {
+const TodoAdd = () => {
     const [text, setText] = useState('');
+    const dispatch = useTasksDispatch()
     return (
         <Row className={'mx-0'}>
             <input
@@ -12,7 +14,7 @@ const TodoAdd = ({ onAddTask }) => {
                 placeholder={'Co chcete přidat...'}
                 value={text}
                 onChange={((e) => setText(e.target.value))}
-                onKeyDown={(e) => (e.key === 'Enter') && (text.length > 0) && (onAddTask(text) || setText('')) }
+                onKeyDown={(e) => (e.key === 'Enter') && (text.length > 0) && (dispatch({ type: 'added', text: text }) || setText('')) }
             />
         </Row>
     );

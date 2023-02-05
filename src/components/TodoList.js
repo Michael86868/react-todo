@@ -1,22 +1,25 @@
 import { useState } from 'react';
 import '../styles/TodoList.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTasks, useTasksDispatch } from "./TasksContext";
 
-const TodoList = ({ tasks, onChangeTask, onDeleteTask }) => {
+const TodoList = () => {
+    const tasks = useTasks();
     return (
         <ul className={'list-group border-0 todo-list-shadow mt-5'}>
             {tasks.map((task) => (
                 <li key={task.id}
                     className={'px-5 py-4 bg-transparent text-light h4 list-group-item d-flex justify-content-between mb-0'}>
-                    <TodoItem task={task} onChange={onChangeTask} onDelete={onDeleteTask} />
+                    <TodoItem task={task} />
                 </li>
             ))}
         </ul>
     );
 }
 
-const TodoItem = ({ task, onChange, onDelete }) => {
+const TodoItem = ({ task }) => {
     const [ isEditing, setIsEditing ] = useState(false);
+    const dispatch = useTasksDispatch();
 
     return (
         <>
@@ -25,14 +28,14 @@ const TodoItem = ({ task, onChange, onDelete }) => {
                     className="form-check-input rounded-circle bg-transparent border-1 border-dark p-2 my-auto"
                     type="checkbox"
                     checked={task.done}
-                    onChange={(e) => onChange({ ...task, done: e.target.checked })}
+                    onChange={(e) => dispatch({ type: 'changed', task: { ...task, done : e.target.checked } })}
                 />
                 {(isEditing) ?
                     <input
                         value={task.text}
                         className={'bg-transparent border-0 text-light p-0 m-0 h4'}
                         style={{ outline: 'none' }}
-                        onChange={(e) => onChange({ ...task, text: e.target.value })}
+                        onChange={(e) => dispatch({ type: 'changed', task: { ...task, text : e.target.value } })}
                         onKeyDown={(e) => (isEditing) && (e.key === 'Enter') && setIsEditing(!isEditing) }
                     /> :
                     <span>{task.text}</span>}
@@ -47,7 +50,7 @@ const TodoItem = ({ task, onChange, onDelete }) => {
                     icon="trash"
                     className={'text-danger'}
                     style={{ cursor: 'pointer' }}
-                    onClick={() => onDelete(task.id)}
+                    onClick={() => dispatch({ type: 'deleted', id: task.id })}
                 />
             </div>
         </>
